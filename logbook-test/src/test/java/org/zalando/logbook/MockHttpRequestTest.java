@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.zalando.fauxpas.FauxPas.throwingFunction;
-import static org.zalando.logbook.MockHeaders.of;
+import static org.zalando.logbook.HttpHeaders.empty;
 import static org.zalando.logbook.Origin.LOCAL;
 
 final class MockHttpRequestTest implements MockHttpMessageTester {
@@ -37,7 +37,7 @@ final class MockHttpRequestTest implements MockHttpMessageTester {
         assertWith(unit, MockHttpRequest::withPort, Optional.of(443), HttpRequest::getPort);
         assertWith(unit, MockHttpRequest::withPath, "/index.html", HttpRequest::getPath);
         assertWith(unit, MockHttpRequest::withQuery, "?", HttpRequest::getQuery);
-        assertWith(unit, MockHttpRequest::withHeaders, of("Accept", "text/plain"), HttpRequest::getHeaders);
+        assertWith(unit, MockHttpRequest::withHeaders, empty().update("Accept", "text/plain"), HttpRequest::getHeaders);
         assertWith(unit, MockHttpRequest::withContentType, "text/xml", HttpRequest::getContentType);
         assertWith(unit, MockHttpRequest::withCharset, ISO_8859_1, HttpRequest::getCharset);
         assertWith(unit, MockHttpRequest::withBodyAsString, "Hello", throwingFunction(HttpRequest::getBodyAsString));

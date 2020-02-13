@@ -28,15 +28,17 @@ public class RequestResponseState {
     protected Precorrelation precorrelation;
 
     @Setup(Level.Trial)
-    public void setUp(HeaderState headerState) throws Exception {
+    public void setUp(final HeaderState headerState) throws Exception {
         minimalResponse = MockHttpResponse.create()
                 .withContentType("application/json")
-                .withHeaders(MockHeaders.of("Content-Type", "application/json"))
+                .withHeaders(HttpHeaders.empty()
+                        .update("Content-Type", "application/json"))
                 .withBodyAsString("{\"name\":\"Bob\"}");
         
         minimalRequest = MockHttpRequest.create()
                 .withContentType("application/json")
-                .withHeaders(MockHeaders.of("Content-Type", "application/json"))
+                .withHeaders(HttpHeaders.empty()
+                        .update("Content-Type", "application/json"))
                 .withBodyAsString("{\"name\":\"Bob\"}");
         
         request = MockHttpRequest.create()
